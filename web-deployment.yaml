@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: explorer-web # Name of the deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: explorer-web
+  template:
+    metadata:
+      labels:
+        app: explorer-web
+    spec:
+      containers:
+        - name: explorer-web # Name of the container
+          image: webtest:dev # Image name
+          imagePullPolicy: IfNotPresent   
+          ports:
+            - containerPort: 3001

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: explorer-node # Name of the deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: explorer-node
+  template:
+    metadata:
+      labels:
+        app: explorer-node
+    spec:
+      containers:
+        - name: explorer-node # Name of the container
+          image: file-explorer-backend:dev # Image name
+          env:
+            - name: ENVIROMENT
+              value: "dev"
+          ports:
+            - containerPort: 8443
