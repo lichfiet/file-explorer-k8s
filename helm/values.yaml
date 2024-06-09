@@ -3,3 +3,4 @@
 # Declare variables to be passed into your templates.
 appName: file-explorer
 environment: development
+# Default values for file-explorer.
