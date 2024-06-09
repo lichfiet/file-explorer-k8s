@@ -12,6 +12,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: node-ervice
+            name: node-service
             port:
               number: 8443
