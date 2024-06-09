@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: explorer-node # Name of the container
-          image: file-explorer-backend:dev # Image name
+          image: lichfiet/file-explorer-backend:latest # Image name
+          imagePullPolicy: Always
           env:
             - name: ENVIROMENT
               value: "dev"
