@@ -3,4 +3,5 @@
 # Declare variables to be passed into your templates.
 appName: file-explorer
 environment: development
+namespace: helm
 # Default values for file-explorer.

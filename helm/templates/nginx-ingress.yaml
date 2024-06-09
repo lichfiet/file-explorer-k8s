@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Values.appName }}-ingress
+  namespace: {{ .Value.Namespace }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -12,6 +13,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: node-service
+            name: {{ .Values.appName }}-node-service
             port:
               number: 8443
