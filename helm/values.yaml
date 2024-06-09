@@ -4,4 +4,6 @@
 appName: file-explorer
 environment: development
 namespace: helm
+
+backendImage: lichfiet/file-explorer-backend:latest
 # Default values for file-explorer.
