@@ -8,17 +8,10 @@ spec:
   rules:
   - http:
       paths:
-      - path: /web(/|$)(.*)
+      - path: /(.*)
         pathType: ImplementationSpecific
         backend:
           service:
-            name: web-service
-            port:
-              number: 3001
-      - path: /api(/|$)(.*)
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: node-service
+            name: node-ervice
             port:
               number: 8443

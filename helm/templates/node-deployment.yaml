@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: explorer-node # Name of the deployment
+  name: {{ .Values.appName }}-backend # Name of the deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: explorer-node
+      app: {{ .Values.appName }}
   template:
     metadata:
       labels:
-        app: explorer-node
+        app: {{ .Values.appName }}
     spec:
       containers:
-        - name: explorer-node # Name of the container
+        - name: {{ .Values.appName }}-container # Name of the container
           image: lichfiet/file-explorer-backend:latest # Image name
           imagePullPolicy: Always
           env:
             - name: ENVIROMENT
-              value: "dev"
+              value: {{ .Values.environment }}
           ports:
             - containerPort: 8443
