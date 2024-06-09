@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.appName }}-backend # Name of the deployment
   labels:
-    app: {{ .Values.appName }}-backend
+    app: {{ .Values.appName }}
 spec:
   replicas: 1
   selector:
