@@ -8,7 +8,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: {{ .Values.appName }}
+    app: {{ .Values.appName }}-pod
   ports:
   - name: node
     port: 8443
