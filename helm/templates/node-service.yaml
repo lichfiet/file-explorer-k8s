@@ -7,6 +7,6 @@ spec:
   selector:
     podName: {{ .Values.appName }}-pod
   ports:
-  - name: node
+  - name: {{ .Values.appName }}-node-service-port
     port: 8443
     targetPort: 8443
