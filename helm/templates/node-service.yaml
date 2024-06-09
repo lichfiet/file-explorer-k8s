@@ -3,12 +3,10 @@ kind: Service
 metadata:
   name: {{ .Values.appName }}-node-service
   namespace: {{ .Values.namespace }}
-  labels:
-    app: {{ .Values.appName }}
 spec:
   type: ClusterIP
   selector:
-    app: {{ .Values.appName }}-pod
+    podName: {{ .Values.appName }}-pod
   ports:
   - name: node
     port: 8443

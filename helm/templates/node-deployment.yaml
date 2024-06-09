@@ -8,11 +8,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.appName }}-pod
+      podName: {{ .Values.appName }}-pod
   template:
     metadata:
       labels:
-        app: {{ .Values.appName }}-pod
+        podName: {{ .Values.appName }}-pod
     spec:
       containers:
         - name: {{ .Values.appName }}-container # Name of the container
