@@ -1,9 +1,82 @@
-# Default values for file-explorer.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+###############################################################################
+# file-explorer
+###############################################################################
 appName: file-explorer
 environment: development
-namespace: helm
-
+namespace: backend
 backendImage: lichfiet/file-explorer-backend:latest
-# Default values for file-explorer.
+
+###############################################################################
+# Loki
+###############################################################################
+loki:
+  schemaConfig:
+    configs:
+      - from: 2024-04-01
+        store: tsdb
+        object_store: s3
+        schema: v13
+        index:
+          prefix: loki_index_
+          period: 24h
+  ingester:
+    chunk_encoding: snappy
+  tracing:
+    enabled: true
+  querier:
+    # Default is 4, if you have enough memory and CPU you can increase, reduce if OOMing
+    max_concurrent: 4
+  storage:
+    type: s3
+    bucketNames:
+      chunks: "trevors-loki-test-chunks"
+      ruler: "trevors-loki-test-ruler"
+      admin: "trevors-loki-test-admin"
+    s3:
+      region: "us-west-1"
+      secretAccessKey: ${SECRET_ACCESS_KEY}
+      accessKeyId: ${ACCESS_KEY_ID}
+      insecure: true
+
+  deploymentMode: Distributed
+
+  ingester:
+    replicas: 3
+  querier:
+    replicas: 3
+    maxUnavailable: 2
+  queryFrontend:
+    replicas: 2
+    maxUnavailable: 1
+  queryScheduler:
+    replicas: 2
+  distributor:
+    replicas: 3
+    maxUnavailable: 2
+  compactor:
+    replicas: 1
+  indexGateway:
+    replicas: 2
+    maxUnavailable: 1
+
+  bloomCompactor:
+    replicas: 0
+  bloomGateway:
+    replicas: 0
+
+  # zero out 
+  backend:
+    replicas: 0
+  read:
+    replicas: 0
+  write:
+    replicas: 0
+  singleBinary:
+    replicas: 0 
+
+###############################################################################
+# Grafana
+###############################################################################
+grafana:
+  namespaceOverride: observability
+
