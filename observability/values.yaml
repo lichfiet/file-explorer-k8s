@@ -6,18 +6,18 @@ loki:
   deploymentMode: Distributed
 
   ingester:
-    replicas: 3
+    replicas: 2
   querier:
-    replicas: 3
-    maxUnavailable: 2
+    replicas: 2
+    maxUnavailable: 1
   queryFrontend:
     replicas: 2
     maxUnavailable: 1
   queryScheduler:
     replicas: 2
   distributor:
-    replicas: 3
-    maxUnavailable: 2
+    replicas: 2
+    maxUnavailable: 1
   compactor:
     replicas: 1
   indexGateway:
