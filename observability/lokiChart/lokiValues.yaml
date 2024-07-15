@@ -1,14 +1,7 @@
 ###############################################################################
-# file-explorer
-###############################################################################
-appName: file-explorer
-environment: development
-namespace: backend
-backendImage: lichfiet/file-explorer-backend:latest
-
-###############################################################################
 # Loki
 ###############################################################################
+
 loki:
   schemaConfig:
     configs:
@@ -34,25 +27,25 @@ loki:
       admin: "trevors-loki-test-admin"
     s3:
       region: "us-west-1"
-      secretAccessKey: ${SECRET_ACCESS_KEY}
-      accessKeyId: ${ACCESS_KEY_ID}
+      secretAccessKey: XXX
+      accessKeyId: XXX
       insecure: true
 
   deploymentMode: Distributed
 
   ingester:
-    replicas: 3
+    replicas: 2
   querier:
-    replicas: 3
-    maxUnavailable: 2
+    replicas: 2
+    maxUnavailable: 1
   queryFrontend:
     replicas: 2
     maxUnavailable: 1
   queryScheduler:
     replicas: 2
   distributor:
-    replicas: 3
-    maxUnavailable: 2
+    replicas: 2
+    maxUnavailable: 1
   compactor:
     replicas: 1
   indexGateway:
@@ -64,19 +57,15 @@ loki:
   bloomGateway:
     replicas: 0
 
-  # zero out 
+
+  # zero out other components
+
   backend:
     replicas: 0
   read:
     replicas: 0
   write:
     replicas: 0
+
   singleBinary:
     replicas: 0 
-
-###############################################################################
-# Grafana
-###############################################################################
-grafana:
-  namespaceOverride: observability
-
