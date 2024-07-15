@@ -13,7 +13,7 @@ spec:
       - values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: observability
+    namespace: default
   syncPolicy:
     syncOptions:
       - Validate=false
