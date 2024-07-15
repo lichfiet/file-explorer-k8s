@@ -47,5 +47,3 @@ loki:
             period: 24h
           schema: v13
           store: tsdb
-    singleBinary:
-      replicas: 2
