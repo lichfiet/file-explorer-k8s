@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: file-explorer
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/lichfiet/file-explorer-k8s'
+    path: main/fileExplorerChart
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: explorer-app
+  syncPolicy:
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true

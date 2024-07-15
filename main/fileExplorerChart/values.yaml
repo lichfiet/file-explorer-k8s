@@ -5,4 +5,3 @@ appName: file-explorer
 environment: development
 namespace: backend
 backendImage: lichfiet/file-explorer-backend:latest
-
