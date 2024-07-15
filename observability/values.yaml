@@ -47,3 +47,39 @@ loki:
             period: 24h
           schema: v13
           store: tsdb
+
+ingester:
+  replicas: 0
+querier:
+  replicas: 0
+  maxUnavailable: 0
+queryFrontend:
+  replicas: 0
+  maxUnavailable: 0
+queryScheduler:
+  replicas: 0
+distributor:
+  replicas: 0
+  maxUnavailable: 0
+compactor:
+  replicas: 0
+indexGateway:
+  replicas: 0
+  maxUnavailable: 0
+
+bloomCompactor:
+  replicas: 0
+bloomGateway:
+  replicas: 0
+
+# Enable minio for storage
+minio:
+  enabled: false
+
+# Zero out replica counts of other deployment modes
+backend:
+  replicas: 0
+read:
+  replicas: 0
+write:
+  replicas: 0
