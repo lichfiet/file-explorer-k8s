@@ -3,6 +3,8 @@
 ###############################################################################
 
 loki:
+  deploymentMode: singleBinary
+  enabled: true
   auth_enabled: false
   commonConfig:
     replicationFactor: 2
