@@ -3,7 +3,7 @@
 ###############################################################################
 
 loki:
-  authEnabled: false
+  auth_enabled: false
   deploymentMode: Distributed
 
   ingester:
