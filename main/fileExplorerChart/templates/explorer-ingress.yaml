@@ -12,6 +12,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: {{ .Values.appName }}-node-service
+            name: {{ .Values.appName }}-backend
             port:
               number: 8443
