@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: observability
+  name: grafana
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/lichfiet/file-explorer-k8s'
-    path: observability
+    repoURL: 'https://github.com/grafana/helm-charts'
+    path: charts/grafana
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: default
+    namespace: grafana
   syncPolicy:
     syncOptions:
       - Validate=false
