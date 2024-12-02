@@ -30,7 +30,8 @@ metadata:
   namespace: {{ .Values.explorer.namespace }}
 spec:
   ports:
-  - port: 8441
+  - name: thumbnailer 
+    port: 8441
     targetPort: 8441
   selector:
     app: {{ .Values.appName }}-thumbnailer
