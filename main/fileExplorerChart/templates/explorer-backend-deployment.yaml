@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: {{ .Values.appName }}-backend # Name of the deployment
   namespace: {{ .Values.explorer.namespace }}
+  labels:
+    app: {{ .Values.appName }}-backend
 spec:
   replicas: {{ .Values.explorer.backend.replicas }}
   selector:
