@@ -20,6 +20,21 @@ spec:
           env: {{- range .Values.explorer.backend.container.env }}
           - name: {{ .name }}
             value: {{ .value | quote }} {{- end }}
+          - name: AWS_REGION
+            valueFrom:
+              secretKeyRef:
+                name: aws-credentials
+                key: region
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: aws-credentials
+                key: accessKeyId
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws-credentials
+                key: secretAccessKey
           ports: {{ range .Values.explorer.backend.ports }}
           - containerPort: {{ .containerPort }} {{ end }}
 ---
