@@ -29,22 +29,24 @@ explorer:
         - name: RABBITMQ_HOST
           value: "rabbitmq.default.svc.cluster.local"
         - name: REDIS_HOST      
-          value: "redis.default.svc.cluster.local"      
-        - name: AWS_REGION
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: region
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: accessKeyId
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: secretAccessKey
+          value: "redis.default.svc.cluster.local"   
+        - name: LOG_LEVEL
+          value: "trace"
+        # - name: AWS_REGION
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: aws-credentials
+        #       key: region
+        # - name: AWS_ACCESS_KEY_ID
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: aws-credentials
+        #       key: accessKeyId
+        # - name: AWS_SECRET_ACCESS_KEY
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: aws-credentials
+        #       key: secretAccessKey
         - name: AWS_S3_BUCKET
           value: "file-explorer-s3-bucket"
   thumbnailer:
@@ -64,21 +66,23 @@ explorer:
           value: "rabbitmq.default.svc.cluster.local"
         - name: REDIS_HOST
           value: "redis.default.svc.cluster.local"
-        - name: AWS_REGION
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: region
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: accessKeyId
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: secretAccessKey
+        - name: LOG_LEVEL
+          value: "trace"
+        # - name: AWS_REGION
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: aws-credentials
+        #       key: region
+        # - name: AWS_ACCESS_KEY_ID
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: aws-credentials
+        #       key: accessKeyId
+        # - name: AWS_SECRET_ACCESS_KEY
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: aws-credentials
+        #       key: secretAccessKey
         - name: AWS_S3_BUCKET
           value: "file-explorer-s3-bucket"
         - name: THUMBNAIL_FILES_LOCATION
