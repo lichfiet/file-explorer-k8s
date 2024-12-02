@@ -18,9 +18,9 @@ spec:
         - name: {{ .Values.appName }}-backend # Name of the container
           image: {{ .Values.explorer.backend.container.image }} # Image name
           imagePullPolicy: {{ .Values.explorer.backend.container.imagePullPolicy }} # Image Pull Policy
-          env: {{ range $name, $value := .Values.explorer.thumbnailer.container.env }} # Environment Variables
+          env: {{- range .Values.explorer.thumbnailer.container.env }}
           - name: {{ .name }}
-            value: {{ .value }} {{ end }}
+            value: "{{ .value }}" {{ end }}
           ports: {{ range $name, $value := .Values.explorer.thumbnailer.container.ports }} # Ports
           - containerPort: {{ .containerPort }} {{ end }}
 ---

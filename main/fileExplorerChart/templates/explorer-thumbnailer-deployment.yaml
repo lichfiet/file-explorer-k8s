@@ -17,9 +17,9 @@ spec:
       - name: {{ .Values.appName }}-thumbnailer
         image: {{ .Values.explorer.thumbnailer.container.image }}
         imagePullPolicy: {{ .Values.explorer.thumbnailer.container.imagePullPolicy }}
-        env: {{ range $name, $value := .Values.explorer.thumbnailer.container.env }}
+        env: {{- range .Values.explorer.thumbnailer.container.env }}
         - name: {{ .name }}
-          value: {{ .value }} {{ end }}
+          value: "{{ .value }}" {{ end }}
         ports: {{ range $name, $value := .Values.explorer.thumbnailer.container.ports }}
         - containerPort: {{ .containerPort }} {{ end }}
 ---
