@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: explorer-ingress
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: explorer-tls
+  routes:
+    - kind: Rule
+      match: Host(`explorer.trevorlichfield.com`) && PathPrefix(`/`)
+      priority: 9
+      services:
+        - name: file-explorer-service
+          port: 80
