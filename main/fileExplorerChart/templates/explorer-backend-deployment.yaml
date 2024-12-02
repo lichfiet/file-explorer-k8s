@@ -3,36 +3,37 @@ kind: Deployment
 metadata:
   name: {{ .Values.appName }}-backend # Name of the deployment
   labels:
-    app: {{ .Values.appName }}
+    app: {{ .Values.appName }}-backend
 spec:
-  replicas: 1
+  replicas: {{ .Values.explorer.backend.replicas }}
   selector:
     matchLabels:
-      podName: {{ .Values.appName }}-pod
+      app: {{ .Values.appName }}-backend
   template:
     metadata:
       labels:
-        podName: {{ .Values.appName }}-pod
+        app: {{ .Values.appName }}-backend
     spec:
       containers:
-        - name: {{ .Values.appName }}-api # Name of the container
-          image: {{ .Values.backendImage }} # Image name
-          imagePullPolicy: Always
-          env:
-            - name: ENVIROMENT
-              value: {{ .Values.environment }}
-          ports:
-            - containerPort: 8443
+        - name: {{ .Values.appName }}-backend # Name of the container
+          image: {{ .Values.explorer.backend.container.image }} # Image name
+          imagePullPolicy: {{ .Values.explorer.backend.container.imagePullPolicy }} # Image Pull Policy
+          env: {{ range $name, $value := .Values.explorer.thumbnailer.container.env }} # Environment Variables
+          - name: {{ .name }}
+            value: {{ .value }} {{ end }}
+          ports: {{ range $name, $value := .Values.explorer.thumbnailer.container.ports }} # Ports
+          - containerPort: {{ .containerPort }} {{ end }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.appName }}-service
+  name: {{ .Values.appName }}-backend
+  namespace: {{ .Values.explorer.namespace }}
 spec:
   type: ClusterIP
   selector:
-    podName: {{ .Values.appName }}-pod
+    app: {{ .Values.appName }}-backend
   ports:
-  - name: {{ .Values.appName }}-service
+  - name: {{ .Values.appName }}-backend
     port: 8443
     targetPort: 8443

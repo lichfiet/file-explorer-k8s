@@ -2,59 +2,35 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: thumbnailer
-  namespace: backend
+  namespace: {{ .Values.explorer.namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.explorer.thumbnailer.replicas }}
   selector:
     matchLabels:
-      app: thumbnailer
+      app: {{ .Values.appName }}-thumbnailer
   template:
     metadata:
       labels:
-        app: thumbnailer
+        app: {{ .Values.appName }}-thumbnailer
     spec:
       containers:
-      - name: thumbnailer
-        image: lichfiet/file-explorer-thumbnailer:latest
-        ports:
-        - containerPort: 8441
-        env:
-        - name: ENVIRONMENT
-          value: "development"
-        - name: PORT
-          value: "8441"
-        - name: RABBITMQ_HOST
-          value: "rabbitmq"
-        - name: AWS_REGION
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: region
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: accessKeyId
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: secretAccessKey
-        - name: AWS_S3_BUCKET
-          value: "file-explorer-s3-bucket"
-        - name: THUMBNAIL_FILES_LOCATION
-          value: "/usr/file/"
-        - name: REDIS_HOST
-          value: "redis"
+      - name: {{ .Values.appName }}-thumbnailer
+        image: {{ .Values.explorer.thumbnailer.container.image }}
+        imagePullPolicy: {{ .Values.explorer.thumbnailer.container.imagePullPolicy }}
+        env: {{ range $name, $value := .Values.explorer.thumbnailer.container.env }}
+        - name: {{ .name }}
+          value: {{ .value }} {{ end }}
+        ports: {{ range $name, $value := .Values.explorer.thumbnailer.container.ports }}
+        - containerPort: {{ .containerPort }} {{ end }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: thumbnailer
-  namespace: backend
+  namespace: {{ .Values.explorer.namespace }}
 spec:
   ports:
   - port: 8441
     targetPort: 8441
   selector:
-    app: thumbnailer
+    app: {{ .Values.appName }}-thumbnailer

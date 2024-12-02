@@ -4,37 +4,81 @@
 appName: file-explorer
 environment: development
 
+rabbithost: rabbitmq.default.svc.cluster.local
+rabbitport: 5672
+
+redishost: redis.default.svc.cluster.local
+redisport: 6379
+
+
 explorer:
-  api:
+  namespace: default
+  backend:
     replicas: 1
     container:
-      repository: lichfiet
-      image: file-explorer-backend
-      tag: latest
-      port: 8443
+      image: lichfiet/file-explorer-backend:latest
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 8443
+      env:
+        - name: APP_NAME
+          value: "file-explorer"
+        - name: PORT
+          value: "8443"
+        - name: RABBITMQ_HOST
+          value: "rabbitmq.default.svc.cluster.local"
+        - name: REDIS_HOST      
+          value: "redis.default.svc.cluster.local"      
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: region
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: accessKeyId
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: secretAccessKey
+        - name: AWS_S3_BUCKET
+          value: "file-explorer-s3-bucket"
 
   thumbnailer:
     replicas: 1
     container:
-      repository: lichfiet
-      image: file-explorer-thumbnailer
-      tag: latest
-      port: 8441
-
-  rabbitmq:
-    replicas: 1
-    container:
-      repository: rabbitmq
-      image: 3-management
-      tag: latest
-      ports:
-        - 5672
-        - 15672
-
-  redis:
-    replicas: 1
-    container:
-      repository: redis
-      image: alpine
-      tag: latest
-      port: 6379
+      image: lichfiet/file-explorer-thumbnailer:latest
+      imagePullPolicy: Always
+      env:
+        - name: ENVIRONMENT
+          value: "development"
+        - name: PORT
+          value: "8441"
+        - name: RABBITMQ_HOST
+          value: "rabbitmq.default.svc.cluster.local"
+        - name: REDIS_HOST
+          value: "redis.default.svc.cluster.local"
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: region
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: accessKeyId
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: secretAccessKey
+        - name: AWS_S3_BUCKET
+          value: "file-explorer-s3-bucket"
+        - name: THUMBNAIL_FILES_LOCATION
+          value: "/usr/file/"
+    ports:
+      - containerPort: 8441
