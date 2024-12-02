@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.appName }}-backend # Name of the deployment
-  labels:
-    app: {{ .Values.appName }}-backend
+  namespace: {{ .Values.explorer.namespace }}
 spec:
   replicas: {{ .Values.explorer.backend.replicas }}
   selector:
