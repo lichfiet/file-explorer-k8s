@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thumbnailer
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: thumbnailer
+  template:
+    metadata:
+      labels:
+        app: thumbnailer
+    spec:
+      containers:
+      - name: thumbnailer
+        image: lichfiet/file-explorer-thumbnailer:latest
+        ports:
+        - containerPort: 8441
+        env:
+        - name: ENVIRONMENT
+          value: "development"
+        - name: PORT
+          value: "8441"
+        - name: RABBITMQ_HOST
+          value: "rabbitmq"
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: region
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: accessKeyId
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: secretAccessKey
+        - name: AWS_S3_BUCKET
+          value: "file-explorer-s3-bucket"
+        - name: THUMBNAIL_FILES_LOCATION
+          value: "/usr/file/"
+        - name: REDIS_HOST
+          value: "redis"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: thumbnailer
+  namespace: backend
+spec:
+  ports:
+  - port: 8441
+    targetPort: 8441
+  selector:
+    app: thumbnailer

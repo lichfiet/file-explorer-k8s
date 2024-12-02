@@ -3,5 +3,38 @@
 ###############################################################################
 appName: file-explorer
 environment: development
-namespace: backend
-backendImage: lichfiet/file-explorer-backend:latest
+
+explorer:
+  api:
+    replicas: 1
+    container:
+      repository: lichfiet
+      image: file-explorer-backend
+      tag: latest
+      port: 8443
+
+  thumbnailer:
+    replicas: 1
+    container:
+      repository: lichfiet
+      image: file-explorer-thumbnailer
+      tag: latest
+      port: 8441
+
+  rabbitmq:
+    replicas: 1
+    container:
+      repository: rabbitmq
+      image: 3-management
+      tag: latest
+      ports:
+        - 5672
+        - 15672
+
+  redis:
+    replicas: 1
+    container:
+      repository: redis
+      image: alpine
+      tag: latest
+      port: 6379

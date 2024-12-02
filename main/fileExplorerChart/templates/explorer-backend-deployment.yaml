@@ -15,7 +15,7 @@ spec:
         podName: {{ .Values.appName }}-pod
     spec:
       containers:
-        - name: {{ .Values.appName }}-container # Name of the container
+        - name: {{ .Values.appName }}-api # Name of the container
           image: {{ .Values.backendImage }} # Image name
           imagePullPolicy: Always
           env:
@@ -23,3 +23,16 @@ spec:
               value: {{ .Values.environment }}
           ports:
             - containerPort: 8443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appName }}-service
+spec:
+  type: ClusterIP
+  selector:
+    podName: {{ .Values.appName }}-pod
+  ports:
+  - name: {{ .Values.appName }}-service
+    port: 8443
+    targetPort: 8443
