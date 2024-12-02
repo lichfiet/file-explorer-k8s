@@ -13,5 +13,5 @@ spec:
       match: Host(`explorer.trevorlichfield.com`) && PathPrefix(`/`)
       priority: 12
       services:
-        - name: file-explorer-service
+        - name: {{ .Values.appName }}-backend
           port: 8443
