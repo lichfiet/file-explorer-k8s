@@ -11,7 +11,7 @@ spec:
   routes:
     - kind: Rule
       match: Host(`explorer.trevorlichfield.com`) && PathPrefix(`/`)
-      priority: 13
+      priority: 12
       services:
         - name: file-explorer-service
           port: 80
