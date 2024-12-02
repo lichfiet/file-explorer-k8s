@@ -1,0 +1,19 @@
+global:
+  domain: argo.trevorlichfield.com
+
+configs:
+  params:
+    server.insecure: true
+
+# server:
+#   ingress:
+#     enabled: false
+#     ingressClassName: nginx
+#     annotations:
+#       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+#     extraTls:
+#       - hosts:
+#         - argo.trevorlichfield.com
+#         # Based on the ingress controller used secret might be optional
+#         secretName: wildcard-tls
