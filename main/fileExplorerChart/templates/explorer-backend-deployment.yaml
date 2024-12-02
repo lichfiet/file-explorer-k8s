@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.appName }}-backend # Name of the deployment
-  # namespace: {{ .Values.explorer.namespace }}
+  namespace: {{ .Values.explorer.namespace }}
 spec:
   replicas: {{ .Values.explorer.backend.replicas }}
   selector:
@@ -19,20 +19,22 @@ spec:
           imagePullPolicy: {{ .Values.explorer.backend.container.imagePullPolicy }} # Image Pull Policy
           env: {{- range .Values.explorer.backend.container.env }}
           - name: {{ .name }}
-            value: "{{ .value }}" {{ end }}
-          ports:  # Ports
-          - containerPort: 8443
+            value: {{ .value | quote }} {{- end }}
+          ports: {{ range .Values.explorer.backend.ports }}
+          - containerPort: {{ .containerPort }} {{ end }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
-  # namespace: {{ .Values.explorer.namespace }}
+  name: {{ .Values.appName }}-backend
+  namespace: {{ .Values.explorer.namespace }}
 spec:
   type: ClusterIP
-  ports:
-  - name: backend
-    port: 8443
-    targetPort: 8443
+  ports: 
+  {{ range .Values.explorer.backend.ports }}
+  - name: {{ .name }}
+    port: {{ .containerPort }}
+    targetPort: {{ .containerPort }} 
+  {{ end }}
   selector:
     app: {{ .Values.appName }}-backend

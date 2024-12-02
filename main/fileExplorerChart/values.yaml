@@ -15,6 +15,9 @@ explorer:
   namespace: default
   backend:
     replicas: 1
+    ports:
+      - containerPort: 8443
+        name: http
     container:
       image: lichfiet/file-explorer-backend:latest
       imagePullPolicy: Always
@@ -27,26 +30,28 @@ explorer:
           value: "rabbitmq.default.svc.cluster.local"
         - name: REDIS_HOST      
           value: "redis.default.svc.cluster.local"      
-        # - name: AWS_REGION
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: region
-        # - name: AWS_ACCESS_KEY_ID
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: accessKeyId
-        # - name: AWS_SECRET_ACCESS_KEY
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: secretAccessKey
-        # - name: AWS_S3_BUCKET
-        #   value: "file-explorer-s3-bucket"
-
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: region
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: accessKeyId
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: secretAccessKey
+        - name: AWS_S3_BUCKET
+          value: "file-explorer-s3-bucket"
   thumbnailer:
     replicas: 1
+    ports:
+      - containerPort: 8441
+        name: http
     container:
       image: lichfiet/file-explorer-thumbnailer:latest
       imagePullPolicy: Always
@@ -78,5 +83,3 @@ explorer:
           value: "file-explorer-s3-bucket"
         - name: THUMBNAIL_FILES_LOCATION
           value: "/usr/file/"
-    ports:
-      - containerPort: 8441

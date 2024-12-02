@@ -19,8 +19,8 @@ spec:
         imagePullPolicy: {{ .Values.explorer.thumbnailer.container.imagePullPolicy }}
         env: {{- range .Values.explorer.thumbnailer.container.env }}
         - name: {{ .name }}
-          value: "{{ .value }}" {{ end }}
-        ports: {{ range $name, $value := .Values.explorer.thumbnailer.container.ports }}
+          value: {{ .value | quote }} {{- end }}
+        ports: {{ range .Values.explorer.thumbnailer.ports }}
         - containerPort: {{ .containerPort }} {{ end }}
 ---
 apiVersion: v1
@@ -30,8 +30,10 @@ metadata:
   namespace: {{ .Values.explorer.namespace }}
 spec:
   ports:
-  - name: thumbnailer 
-    port: 8441
-    targetPort: 8441
+  {{ range .Values.explorer.thumbnailer.ports }}
+  - name: {{ .name }}
+    port: {{ .containerPort }}
+    targetPort: {{ .containerPort }}
+  {{ end }}
   selector:
     app: {{ .Values.appName }}-thumbnailer
