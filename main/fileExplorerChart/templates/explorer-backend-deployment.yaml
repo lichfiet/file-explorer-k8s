@@ -20,19 +20,19 @@ spec:
           env: {{- range .Values.explorer.thumbnailer.container.env }}
           - name: {{ .name }}
             value: "{{ .value }}" {{ end }}
-          ports: {{ range $name, $value := .Values.explorer.thumbnailer.container.ports }} # Ports
-          - containerPort: {{ .containerPort }} {{ end }}
+          ports:  # Ports
+          - containerPort: 8443
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.appName }}-backend
-  namespace: {{ .Values.explorer.namespace }}
+  # namespace: {{ .Values.explorer.namespace }}
 spec:
   type: ClusterIP
-  selector:
-    app: {{ .Values.appName }}-backend
   ports:
   - name: {{ .Values.appName }}-backend
     port: 8443
     targetPort: 8443
+  selector:
+    app: {{ .Values.appName }}-backend
