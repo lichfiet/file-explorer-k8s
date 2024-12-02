@@ -30,3 +30,14 @@ version: ## Output the current version
 print:
 	@echo "${BCyan}...Launching Dev Server... ${NC}"
 
+argo-generate-cert:
+	certbot certonly  --dns-route53 -d argo.trevorlichfield.com
+	cp /etc/letsencrypt/live/argo.trevorlichfield.com/fullchain.pem argo/tls.crt
+	cp /etc/letsencrypt/live/argo.trevorlichfield.com/privkey.pem argo/tls.key
+	sudo chown -R 1000:1000 argo
+	rm -rf /etc/letsencrypt/argo.trevorlichfield.com
+
+argo-secret-cert:
+	kubectl create secret tls argo-tls --cert=argo/tls.crt --key=argo/tls.key -n argocd
+	rm argo/tls.crt
+	rm argo/tls.key
