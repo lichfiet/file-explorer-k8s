@@ -18,8 +18,6 @@ explorer:
     container:
       image: lichfiet/file-explorer-backend:latest
       imagePullPolicy: Always
-      ports:
-        - containerPort: 8443
       env:
         - name: APP_NAME
           value: "file-explorer"

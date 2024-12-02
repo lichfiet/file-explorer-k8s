@@ -26,12 +26,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.appName }}-backend
+  name: backend
   # namespace: {{ .Values.explorer.namespace }}
 spec:
   type: ClusterIP
   ports:
-  - name: {{ .Values.appName }}-backend
+  - name: backend
     port: 8443
     targetPort: 8443
   selector:
