@@ -45,7 +45,7 @@ explorer:
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: "http://observability-signoz-otel-collector.platform.svc.cluster.local:4318"
         - name: OTEL_NODE_RESOURCE_DETECTORS
-          value: "env,host,os"
+          value: "env,host"
         - name: OTEL_SERVICE_NAME
           value: "file-explorer-backend"
         - name: NODE_OPTIONS
@@ -68,7 +68,7 @@ explorer:
         - name: AWS_S3_BUCKET
           value: "file-explorer-s3-bucket"
   thumbnailer:
-    replicas: 0
+    replicas: 1
     ports:
       - containerPort: 8441
         name: http
