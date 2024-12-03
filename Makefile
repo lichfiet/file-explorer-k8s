@@ -41,3 +41,15 @@ argo-secret-cert:
 	kubectl create secret tls argo-tls --cert=argo/tls.crt --key=argo/tls.key -n argocd
 	rm argo/tls.crt
 	rm argo/tls.key
+
+signoz-generate-cert:
+	certbot certonly  --dns-route53 -d signoz.trevorlichfield.com
+	cp /etc/letsencrypt/live/signoz.trevorlichfield.com/fullchain.pem observability/tls.crt
+	cp /etc/letsencrypt/live/signoz.trevorlichfield.com/privkey.pem observability/tls.key
+	sudo chown -R 1000:1000 observability
+	rm -rf /etc/letsencrypt/signoz.trevorlichfield.com
+
+signoz-secret-cert:
+	kubectl create secret tls signoz-tls --cert=observability/tls.crt --key=observability/tls.key -n platform
+	rm observability/tls.crt
+	rm observability/tls.key

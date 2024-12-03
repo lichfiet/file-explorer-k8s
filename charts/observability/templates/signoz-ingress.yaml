@@ -11,7 +11,13 @@ spec:
   routes:
     - kind: Rule
       match: Host(`signoz.trevorlichfield.com`) && PathPrefix(`/`)
-      priority: 12
+      priority: 15
+      services:
+        - name: observability-signoz-frontend
+          port: 3301
+    - kind: Rule
+      match: Host(`signoz.trevorlichfield.com`) && PathPrefix(`/api`)
+      priority: 15
       services:
         - name: observability-signoz-frontend
           port: 3301
