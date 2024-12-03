@@ -11,7 +11,7 @@ redishost: redis.default.svc.cluster.local
 redisport: 6379
 
 rabbitmq:
-  enabled: false
+  enabled: true
 
 redis: 
   enabled: false
@@ -20,7 +20,7 @@ redis:
 explorer:
   namespace: default
   backend:
-    replicas: 0
+    replicas: 1
     ports:
       - containerPort: 8443
         name: http
@@ -38,6 +38,16 @@ explorer:
           value: "redis.default.svc.cluster.local"   
         - name: LOG_LEVEL
           value: "trace"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://observability-signoz-otel-collector.platform.svc.cluster.local:4317"
+        - name: OTEL_EXPORTER_OTLP_INSECURE
+          value: "true"
+        - name: OTEL_NODE_RESOURCE_DETECTORS
+          value: "env,host,os"
+        - name: OTEL_SERVICE_NAME
+          value: "file-explorer-backend"
+        - name: NODE_OPTIONS
+          value: "--require @opentelemetry/auto-instrumentations-node/register"
         # - name: AWS_REGION
         #   valueFrom:
         #     secretKeyRef:
