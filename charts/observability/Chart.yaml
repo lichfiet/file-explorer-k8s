@@ -9,5 +9,5 @@ appVersion: "1.16.0"
 dependencies:
   - name: signoz
     version: "0.58.0"
-    repository: "https://signoz-io.github.io/helm-charts/"
+    repository: "https://charts.signoz.io"
     condition: signoz.enabled
