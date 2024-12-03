@@ -10,7 +10,7 @@ presets:
   otlpExporter:
     enabled: true
   loggingExporter:
-    enabled: false
+    enabled: true
 
 signoz:
   enabled: true
