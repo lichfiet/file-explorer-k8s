@@ -1,2 +1,3 @@
 signoz:
   enabled: true
+  namespace: platform
