@@ -10,11 +10,17 @@ rabbitport: 5672
 redishost: redis.default.svc.cluster.local
 redisport: 6379
 
+rabbitmq:
+  enabled: false
+
+redis: 
+  enabled: false
+
 
 explorer:
   namespace: default
   backend:
-    replicas: 1
+    replicas: 0
     ports:
       - containerPort: 8443
         name: http
@@ -50,7 +56,7 @@ explorer:
         - name: AWS_S3_BUCKET
           value: "file-explorer-s3-bucket"
   thumbnailer:
-    replicas: 1
+    replicas: 0
     ports:
       - containerPort: 8441
         name: http

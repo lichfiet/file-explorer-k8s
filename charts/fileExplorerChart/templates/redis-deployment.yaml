@@ -1,3 +1,4 @@
+{{ if .Values.redis.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,6 +24,7 @@ spec:
           value: ""
         - name: REDIS_PORT
           value: "6379"
+{{ end }}
 ---
 apiVersion: v1
 kind: Service
