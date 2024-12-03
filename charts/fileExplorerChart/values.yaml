@@ -14,7 +14,7 @@ rabbitmq:
   enabled: true
 
 redis: 
-  enabled: false
+  enabled: true
 
 
 explorer:

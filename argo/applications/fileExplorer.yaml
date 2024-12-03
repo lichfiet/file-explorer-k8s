@@ -6,7 +6,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/lichfiet/file-explorer-k8s'
-    path: main/fileExplorerChart
+    path: charts/fileExplorerChart
     targetRevision: HEAD
     helm:
       valueFiles:
