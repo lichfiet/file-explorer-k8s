@@ -38,10 +38,10 @@ explorer:
           value: "redis.default.svc.cluster.local"   
         - name: LOG_LEVEL
           value: "trace"
+        - name: OTEL_TRACES_EXPORTER
+          value: "otlp"
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: "http://observability-signoz-otel-collector.platform.svc.cluster.local:4317"
-        - name: OTEL_EXPORTER_OTLP_INSECURE
-          value: "true"
         - name: OTEL_NODE_RESOURCE_DETECTORS
           value: "env,host,os"
         - name: OTEL_SERVICE_NAME
