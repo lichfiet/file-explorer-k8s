@@ -54,21 +54,6 @@ explorer:
           value: "file-explorer-backend"
         - name: NODE_OPTIONS
           value: "--require @opentelemetry/auto-instrumentations-node/register"
-        # - name: AWS_REGION
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: region
-        # - name: AWS_ACCESS_KEY_ID
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: accessKeyId
-        # - name: AWS_SECRET_ACCESS_KEY
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: secretAccessKey
         - name: AWS_S3_BUCKET
           value: "file-explorer-s3-bucket"
   thumbnailer:
@@ -90,21 +75,22 @@ explorer:
           value: "redis.default.svc.cluster.local"
         - name: LOG_LEVEL
           value: "trace"
-        # - name: AWS_REGION
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: region
-        # - name: AWS_ACCESS_KEY_ID
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: accessKeyId
-        # - name: AWS_SECRET_ACCESS_KEY
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: aws-credentials
-        #       key: secretAccessKey
+        - name: OTEL_LOG_LEVEL
+          value: "trace"
+        - name: OTEL_LOGS_EXPORTER
+          value: "otlp"
+        - name: OTEL_TRACES_EXPORTER
+          value: "otlp"
+        - name: OTEL_EXPORTER_OTLP_LOGS_ENDPOINT
+          value: "http://observability-signoz-otel-collector.platform.svc.cluster.local:4318"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://observability-signoz-otel-collector.platform.svc.cluster.local:4318"
+        - name: OTEL_NODE_RESOURCE_DETECTORS
+          value: "env,host"
+        - name: OTEL_SERVICE_NAME
+          value: "file-explorer-backend"
+        - name: NODE_OPTIONS
+          value: "--require @opentelemetry/auto-instrumentations-node/register"
         - name: AWS_S3_BUCKET
           value: "file-explorer-s3-bucket"
         - name: THUMBNAIL_FILES_LOCATION
