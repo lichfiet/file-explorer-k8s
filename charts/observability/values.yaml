@@ -9,12 +9,10 @@ otelInsecure: true
 presets:
   otlpExporter:
     enabled: true
-  loggingExporter:
-    enabled: true
-    endpoint: observability-signoz-otel-collector.platform.svc.cluster.local:4318
-    insecure: true
-  loggingExporterKubernetes:
-    enabled: true
+  # loggingExporter:
+  #   enabled: true
+  #   endpoint: observability-signoz-otel-collector.platform.svc.cluster.local:4318
+  #   insecure: true
 
 
 signoz:
