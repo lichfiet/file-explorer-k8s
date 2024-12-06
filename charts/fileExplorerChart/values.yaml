@@ -20,7 +20,7 @@ redis:
 explorer:
   namespace: default
   backend:
-    replicas: 1
+    replicas: 2
     ports:
       - containerPort: 8443
         name: http
@@ -37,9 +37,9 @@ explorer:
         - name: REDIS_HOST      
           value: "redis.default.svc.cluster.local"   
         - name: LOG_LEVEL
-          value: "trace"
+          value: "error"
         - name: OTEL_LOG_LEVEL
-          value: "trace"
+          value: "error"
         - name: OTEL_LOGS_EXPORTER
           value: "otlp"
         - name: OTEL_TRACES_EXPORTER
@@ -74,9 +74,9 @@ explorer:
         - name: REDIS_HOST
           value: "redis.default.svc.cluster.local"
         - name: LOG_LEVEL
-          value: "trace"
+          value: "error"
         - name: OTEL_LOG_LEVEL
-          value: "trace"
+          value: "error"
         - name: OTEL_LOGS_EXPORTER
           value: "otlp"
         - name: OTEL_TRACES_EXPORTER
