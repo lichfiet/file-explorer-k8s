@@ -20,7 +20,7 @@ redis:
 explorer:
   namespace: default
   backend:
-    replicas: 2
+    replicas: 1
     ports:
       - containerPort: 8443
         name: http
