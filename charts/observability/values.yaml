@@ -7,12 +7,6 @@ otelCollectorInsecure: true
 otelEndpoint: observability-signoz-otel-collector.platform.svc.cluster.local:4317
 otelInsecure: true
 
-alertmanager:
-  replicaCount: 0
-
-otelCollectorMetrics:
-  replicaCount: 0
-
 otelCollector:
   replicaCount: 2
   nodeAffinity:
