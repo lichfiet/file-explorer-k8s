@@ -53,7 +53,7 @@ explorer:
         - name: OTEL_SERVICE_NAME
           value: "file-explorer-backend"
         - name: NODE_OPTIONS
-          value: "--require @opentelemetry/auto-instrumentations-node/register"
+          value: ""
         - name: AWS_S3_BUCKET
           value: "file-explorer-s3-bucket"
   thumbnailer:
