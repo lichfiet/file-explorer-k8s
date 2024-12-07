@@ -49,7 +49,7 @@ explorer:
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: "http://observability-signoz-otel-collector.platform.svc.cluster.local:4318"
         - name: OTEL_NODE_RESOURCE_DETECTORS
-          value: "env,host"
+          value: "env,host,os"
         - name: OTEL_SERVICE_NAME
           value: "file-explorer-backend"
         - name: NODE_OPTIONS
@@ -86,7 +86,7 @@ explorer:
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: "http://observability-signoz-otel-collector.platform.svc.cluster.local:4318"
         - name: OTEL_NODE_RESOURCE_DETECTORS
-          value: "env,host"
+          value: "env,host,os"
         - name: OTEL_SERVICE_NAME
           value: "file-explorer-thumbnailer"
         - name: NODE_OPTIONS
