@@ -74,9 +74,9 @@ explorer:
         - name: REDIS_HOST
           value: "redis.default.svc.cluster.local"
         - name: LOG_LEVEL
-          value: "error"
+          value: "debug"
         - name: OTEL_LOG_LEVEL
-          value: "error"
+          value: "debug"
         - name: OTEL_LOGS_EXPORTER
           value: "otlp"
         - name: OTEL_TRACES_EXPORTER
