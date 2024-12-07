@@ -27,11 +27,22 @@ otelCollector:
 presets:
   otlpExporter:
     enabled: true
-  # loggingExporter:
-  #   enabled: true
-  #   endpoint: observability-signoz-otel-collector.platform.svc.cluster.local:4318
-  #   insecure: true
-
+  loggingExporter:
+    enabled: true
+    endpoint: observability-signoz-otel-collector.platform.svc.cluster.local:4318
+    insecure: true
+  logsCollection:
+    enabled: true
+    startAt: beginning
+    includeFilePath: true
+    includeFileName: false
+    # This include path patterns for log files to be collected.
+    # By default, all container logs are collected.
+    # If whitelist is set, this list is ignored.
+    include:
+      - /var/log/pods/*/*/*.log
+    # This can be used to exclude certain log files from being collected.
+    # By default, kube-system and hotrod, locust pods are excluded.
 
 signoz:
   enabled: true
